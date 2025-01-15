@@ -92,6 +92,7 @@ int best_reaction_time_in_millisec = 99999;  //Start with something easy to beat
   */
 int main(void)
 {
+
   /* USER CODE BEGIN 1 */
 
   /* USER CODE END 1 */
@@ -262,61 +263,81 @@ static void MX_TIM3_Init(void)
 
 }
 
+/**
+  * @brief TIM6 Initialization Function
+  * @param None
+  * @retval None
+  */
 static void MX_TIM6_Init(void)
 {
 
-  /* USER CODE BEGIN TIM16_Init 0 */
+  /* USER CODE BEGIN TIM6_Init 0 */
 
-  /* USER CODE END TIM16_Init 0 */
+  /* USER CODE END TIM6_Init 0 */
 
-  /* USER CODE BEGIN TIM16_Init 1 */
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
 
-  /* USER CODE END TIM16_Init 1 */
-  htim16.Instance = TIM16;
-  htim16.Init.Prescaler = 8000 -1;
-  htim16.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim16.Init.Period = 5000;
-  htim16.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-  htim16.Init.RepetitionCounter = 0;
-  htim16.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  /* USER CODE BEGIN TIM6_Init 1 */
+
+  /* USER CODE END TIM6_Init 1 */
+  htim6.Instance = TIM6;
+  htim6.Init.Prescaler = 8000-1;
+  htim6.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim6.Init.Period = 5000-1;
+  htim6.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim6) != HAL_OK)
   {
     Error_Handler();
   }
-  /* USER CODE BEGIN TIM16_Init 2 */
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim6, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM6_Init 2 */
 
-  /* USER CODE END TIM16_Init 2 */
+  /* USER CODE END TIM6_Init 2 */
 
 }
 
-
+/**
+  * @brief TIM7 Initialization Function
+  * @param None
+  * @retval None
+  */
 static void MX_TIM7_Init(void)
 {
 
-  /* USER CODE BEGIN TIM16_Init 0 */
+  /* USER CODE BEGIN TIM7_Init 0 */
 
-  /* USER CODE END TIM16_Init 0 */
+  /* USER CODE END TIM7_Init 0 */
 
-  /* USER CODE BEGIN TIM16_Init 1 */
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
 
-  /* USER CODE END TIM16_Init 1 */
-  htim16.Instance = TIM16;
-  htim16.Init.Prescaler = 8000 -1;
-  htim16.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim16.Init.Period = 2500;
-  htim16.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-  htim16.Init.RepetitionCounter = 0;
-  htim16.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  /* USER CODE BEGIN TIM7_Init 1 */
+
+  /* USER CODE END TIM7_Init 1 */
+  htim7.Instance = TIM7;
+  htim7.Init.Prescaler = 8000-1;
+  htim7.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim7.Init.Period = 2500-1;
+  htim7.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim7) != HAL_OK)
   {
     Error_Handler();
   }
-  /* USER CODE BEGIN TIM16_Init 2 */
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim7, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM7_Init 2 */
 
-  /* USER CODE END TIM16_Init 2 */
+  /* USER CODE END TIM7_Init 2 */
 
 }
-
 
 /**
   * @brief TIM16 Initialization Function
@@ -561,12 +582,12 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 
   if (htim == &htim6 )
     {
-  	HAL_GPIO_TogglePin(LED_D2_GPIO_Port, LED_D2_Pin);
+	  HAL_GPIO_TogglePin(LED_D2_GPIO_Port, LED_D2_Pin);
     }
 
   if (htim == &htim7 )
     {
-  	HAL_GPIO_TogglePin(LED_D3_GPIO_Port, LED_D3_Pin);
+	  HAL_GPIO_TogglePin(LED_D3_GPIO_Port, LED_D3_Pin);
     }
 
   /**************** STUDENT TO FILL IN START HERE ********************/
