@@ -45,6 +45,8 @@
 
 /* Private variables ---------------------------------------------------------*/
 TIM_HandleTypeDef htim3;
+TIM_HandleTypeDef htim6;
+TIM_HandleTypeDef htim7;
 TIM_HandleTypeDef htim16;
 TIM_HandleTypeDef htim17;
 
@@ -64,6 +66,8 @@ static void MX_USART2_UART_Init(void);
 static void MX_TIM17_Init(void);
 static void MX_TIM16_Init(void);
 static void MX_TIM3_Init(void);
+static void MX_TIM6_Init(void);
+static void MX_TIM7_Init(void);
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
 #define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
@@ -115,6 +119,8 @@ int main(void)
   MX_TIM17_Init();
   MX_TIM16_Init();
   MX_TIM3_Init();
+  MX_TIM6_Init();
+  MX_TIM7_Init();
   /* USER CODE BEGIN 2 */
 
   // Start timer
@@ -124,7 +130,9 @@ int main(void)
   /************  STUDENT TO FILL IN HERE START *********************/
 
     // Add your Timer Start for LED-D2 HERE
+
     // Add your Timer Start for LED-D3 HERE
+
 
   /************  STUDENT TO FILL IN HERE END   *********************/
 
@@ -253,6 +261,62 @@ static void MX_TIM3_Init(void)
   /* USER CODE END TIM3_Init 2 */
 
 }
+
+static void MX_TIM6_Init(void)
+{
+
+  /* USER CODE BEGIN TIM16_Init 0 */
+
+  /* USER CODE END TIM16_Init 0 */
+
+  /* USER CODE BEGIN TIM16_Init 1 */
+
+  /* USER CODE END TIM16_Init 1 */
+  htim16.Instance = TIM16;
+  htim16.Init.Prescaler = 8000 -1;
+  htim16.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim16.Init.Period = 5000;
+  htim16.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim16.Init.RepetitionCounter = 0;
+  htim16.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(&htim6) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM16_Init 2 */
+
+  /* USER CODE END TIM16_Init 2 */
+
+}
+
+
+static void MX_TIM7_Init(void)
+{
+
+  /* USER CODE BEGIN TIM16_Init 0 */
+
+  /* USER CODE END TIM16_Init 0 */
+
+  /* USER CODE BEGIN TIM16_Init 1 */
+
+  /* USER CODE END TIM16_Init 1 */
+  htim16.Instance = TIM16;
+  htim16.Init.Prescaler = 8000 -1;
+  htim16.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim16.Init.Period = 2500;
+  htim16.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim16.Init.RepetitionCounter = 0;
+  htim16.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(&htim7) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM16_Init 2 */
+
+  /* USER CODE END TIM16_Init 2 */
+
+}
+
 
 /**
   * @brief TIM16 Initialization Function
@@ -494,6 +558,16 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   {
 	  MultiFunctionShield__ISRFunc();
   }
+
+  if (htim == &htim6 )
+    {
+  	HAL_GPIO_TogglePin(LED_D2_GPIO_Port, LED_D2_Pin);
+    }
+
+  if (htim == &htim7 )
+    {
+  	HAL_GPIO_TogglePin(LED_D3_GPIO_Port, LED_D3_Pin);
+    }
 
   /**************** STUDENT TO FILL IN START HERE ********************/
   /*   See example above where the htim
